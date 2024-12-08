@@ -1,0 +1,101 @@
+{% extends 'initial/register.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+	<section>
+
+        <div
+          class="animate_top bb af i va sg hh sm vk xm yi _n jp hi ao kp"
+        >
+          <!-- Bg Border -->
+        <span class="rc h r s zd/2 od zg bg-green-400">
+            <div class="flex justify-center mt-3">
+                <a href="{% url 'member_signup' %}" class="text-3xl text-green-400">Member</a>
+            </div>
+        </span>
+
+        <span class="rc h r q zd/2 od xg bg-grey-400">
+          <div class="flex justify-center mt-3">
+            <a href="{% url 'officer_signup' %}" class="text-3xl text-grey-400 hover:text-green-400">Officer</a>
+            </div>
+        </span>
+
+          
+          <form class="sb" method="post">
+            <div class="rj">
+              <h2 class="ek ck kk wm xb mt-4">Create an account</h2>
+            </div>
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="bg-red-100 border border-red-400 text-red-700 my-4 px-4 py-3 rounded">
+              {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              {% endfor %}
+            </div>
+          {% endif %}
+          <div class="wb flex">
+            <div class="mr-3">
+            <label class="rc kk wm vb" for="fname">First Name</label>
+            <input id="fname" name="fname" placeholder="John" type="text" required="" value="" 
+              class="vd hh rg zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40"/>
+            </div>
+            <div class="ml-3">
+                <label class="rc kk wm vb" for="lname">Last Name</label>
+                <input id="lname" name="lname" placeholder="Dela Cruz" type="text" required="" value="" 
+                  class="vd hh rg zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40"/>
+              </div>
+          </div>
+
+            <div class="wb">
+              <label class="rc kk wm vb" for="username">Username</label>
+              <div class="flex">
+
+                <span class="inline-flex border-gray-300 bg-gray-50 text-gray-500 rounded-l-full zk _g xi ti">
+            svg2hoa.com/
+        </span>
+                <input id="username" name="username" placeholder="john123" type="text" required="" value=""
+                class="flex-1 form-input block rounded-r-full vd zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40">
+            </div>
+            </div>
+
+            <div class="wb">
+                <label class="rc kk wm vb" for="email">Email</label>
+                <input id="email" name="email" placeholder="example@gmail.com" type="text" required="" value="" 
+                class="vd hh rg zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40"/>
+                </div>
+            
+            <div class="wb flex">
+                <div class="mr-3">
+              <label class="rc kk wm vb" for="password">Password</label>
+              <input id="password1" name="password1" type="password" required="" 
+                placeholder="**************"
+                class="vd hh rg zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40"/>
+            </div>
+            <div class="ml-3">
+                <label class="rc kk wm vb" for="password2">Confirm Password</label>
+                <input id="password2" name="password2" type="password" required="" 
+                  placeholder="**************"
+                  class="vd hh rg zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40"/>
+                </div>
+            </div>
+
+            <div class="wb">
+              </div>
+
+            <button type="submit" class="vd rj ek rc rg nh lk ml il _l gi hi hover:bg-green-600">
+              Create account
+            </button>
+
+            <a href="{% url 'home' %}" class="vd rj ek rc rg mh lk ml il _l gi hi mt-5 hover:bg-red-600">Cancel</a>
+
+            <p class="sj hk xj rj ob">
+              Already have an account? <a href="{% url 'login' %}" class="hover:text-green-400">Login here.</a>
+            </p>
+          </form>
+        </div>
+      </section>
+</div>
+{% endblock content %}

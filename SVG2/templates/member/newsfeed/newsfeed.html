@@ -1,0 +1,76 @@
+{% extends "member/base.html" %}
+
+{% block title %}
+Newsfeed
+{% endblock title %}
+
+{% block content %}
+
+<div class="px-4 pt-16 sm:ml-64">
+  <div class="p-4 dark:border-gray-700">
+	<div class="flex my-4 col-span-2 flex-col items-center justify-center space-y-4 animate_top">
+		<h2 class="text-4xl sm:text-6xl font-bold text-gray-900 text-center">
+			Latest News
+		</h2>
+		<p class="text-lg text-gray-600 text-center">
+			Read the recent activities within our community.
+		</p>
+	</div>
+	
+	<div class="grid flex flex-wrap grid-rows-2 grid-cols-1 sm:grid-cols-6 gap-6 p-4">
+		{% if latest_news %}
+		<div class="col-span-2 sm:col-span-3 flex row-span-2 flex-wrap justify-left items-center sm:h-full">
+			<!-- White Overlay on Hover -->
+			<div class="animate_top sm:h-full shadow-lg w-full flex flex-col items-center">
+				<a href="{% url 'newsarticle' username=request.user.username pk=latest_news.id %}" class="w-full sm:h-full hover:scale-105 transition duration-200 relative group">
+					<div class="relative w-full overflow-hidden h-64 sm:h-full">
+						{% if latest_news.image %}
+						<img class="w-full h-full object-cover bg-white" src="{{ latest_news.image.url }}" alt="{{ latest_news.pk }}">
+						{% else %}
+						<div class="text-center w-full h-full sm:h-96 bg-gray-200 py-4 flex justify-center items-center">
+							<p>No image available</p>
+						</div>
+						{% endif %}
+						<div class="absolute inset-0 bg-black group-hover:bg-opacity-0 bg-opacity-15 transition duration-300"></div>
+						<div class="absolute bottom-0 left-0 w-full bg-white bg-opacity-60 hover:bg-opacity-80 text-gray-900 text-left p-2">
+							<h4 class="font-semibold text-2xl truncate hover:text-blue-800">{{ latest_news.title }}</h4>
+							<div class="flex items-center justify-between truncate">
+								<p class="truncate">{{ latest_news.description }}</p>
+								<p class="w-full">{{ latest_news.created_at|date:"F j, Y" }}</p>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+			
+		{% endif %}
+			{% for newsfeed in newsfeeds %}
+				<div class="col-span-2 sm:col-span-1 row-span-1 flex flex-wrap justify-left items-center">
+					<div class="animate_top shadow-lg w-full flex flex-col items-center">
+						<a href="{% url 'newsarticle' username=request.user.username pk=newsfeed.id %}" class="w-full hover:scale-105 transition duration-200 relative group">
+							<div class="relative w-full h-64 overflow-hidden"> <!-- Fixed height -->
+							{% if newsfeed.image %}
+							<img class="w-full h-full object-cover bg-white" src="{{ newsfeed.image.url }}" alt="{{ newsfeed.pk }}">
+							{% else %}
+							<div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
+								No Image Available
+							</div>
+							{% endif %}
+							<div class="absolute inset-0 bg-black group-hover:bg-opacity-0 bg-opacity-15 transition duration-300"></div>
+							<div class="absolute bottom-0 left-0 w-full bg-white bg-opacity-60 hover:bg-opacity-80 text-gray-900 text-left p-2">
+									<h4 class="font-semibold text-2xl truncate hover:text-blue-800">{{ newsfeed.title }}</h4>
+								<div class="flex items-center justify-between">
+									<p class="truncate">{{ newsfeed.description }}</p>
+									<p class="truncate">{{ newsfeed.created_at|date:"F j, Y" }}</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					</div>
+				</div>
+		{% endfor %}
+	</div>
+</div>
+</div>
+{% endblock %}

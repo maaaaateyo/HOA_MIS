@@ -1,0 +1,145 @@
+{% extends 'initial/index.html' %}
+
+{% load static %}
+
+{% block title %}
+News
+{% endblock %}
+
+{% block content %}
+<div class="grid flex flex-wrap grid-rows-2 grid-cols-1 sm:grid-cols-6 gap-6 p-4">
+	{% if latest_announcement %}
+		<div class="col-span-2 row-span-2 flex flex-wrap justify-left items-center">
+			<h2 class="animate_top text-4xl sm:text-6xl font-bold text-gray-900 text-center p-2">
+				| Announcement
+			</h2>
+			<div class="animate_top shadow-lg w-full flex flex-col items-center">
+				<div class="relative group w-full h-96 overflow-hidden hover:scale-105 transition duration-200">
+					<div class="absolute inset-0 bg-black group-hover:bg-opacity-0 bg-opacity-15 transition duration-300"></div>
+					
+					{% if latest_announcement.image %}
+					<img class="w-full h-full object-cover bg-white" src="{{ latest_announcement.image.url }}" alt="President Arnel">
+					
+					<div class="w-1/2 sm:w-1/3 absolute bottom-0 left-0 h-full items-center bg-green-800 bg-opacity-95 text-white text-left p-2">
+					{% else %}
+				  <div class="w-full absolute bottom-0 left-0 h-full items-center bg-green-800 bg-opacity-95 text-white text-left p-4 pl-8">
+					{% endif %}
+					<table class="h-full text-lg items-start table-fixed">
+						<tr class="items-start">
+							<th class="font-semibold text-white text-left px-1 pb-4 align-top">
+								Who:
+							</th>
+							<td class="text-white text-left px-1 pb-4 align-top">
+								{{ latest_announcement.who }}
+							</td>
+						</tr>
+						<tr>
+							<th class="font-semibold text-white text-left px-1 pb-4 align-top">
+								What:
+							</th>
+							<td class="text-white text-left px-1 pb-4 align-top">
+								{{ latest_announcement.what }}
+							</td>
+						</tr>
+						<tr class="items-start">
+							<th class="font-semibold text-white text-left px-1 pb-4 align-top">
+								Where:
+							</th>
+							<td class="text-white text-left px-1 pb-4 align-top">
+								{{ latest_announcement.where }}
+							</td>
+						</tr>
+						<tr>
+							<th class="font-semibold text-white text-left px-1 pb-4 align-top">
+								Date:
+							</th>
+							<td class="text-white text-left px-1 pb-4 align-top">
+								{{ latest_announcement.date }}
+							</td>
+						</tr>
+						<tr>
+							<th class="font-semibold text-white text-left px-1 align-top">
+								Time:
+							</th>
+							<td class="text-white text-left px-1 align-top">
+								{{ latest_announcement.time }}
+							</td>
+						</tr>
+					</table>
+				  </div>
+				</div>
+			  </div>
+		</div>
+	{% endif %}
+	{% if latest_news %}
+		<div class="col-span-2 flex row-span-2 flex-wrap justify-left items-center">
+			<h2 class="animate_top text-4xl sm:text-6xl font-bold text-gray-900 text-center p-2">
+				| News
+			</h2>
+			<!-- White Overlay on Hover -->
+			<div class="animate_top shadow-lg w-full flex flex-col items-center">
+				<a href="{% url 'news_article' pk=latest_news.id %}" class="w-full hover:scale-105 transition duration-200 relative group">
+					<div class="relative w-full h-96 overflow-hidden">
+						{% if latest_news.image %}
+						<img class="w-full h-full object-cover bg-white" src="{{ latest_news.image.url }}" alt="{{ latest_news.pk }}">
+						{% else %}
+						<div class="text-center w-full h-full bg-gray-200 py-4 flex justify-center items-center">
+							<p>No image available</p>
+						</div>
+						{% endif %}
+						<div class="absolute inset-0 bg-black group-hover:bg-opacity-0 bg-opacity-15 transition duration-300"></div>
+						<div class="absolute bottom-0 left-0 w-full bg-white bg-opacity-60 hover:bg-opacity-80 text-gray-900 text-left p-2">
+							<h4 class="font-semibold text-2xl truncate hover:text-blue-800">{{ latest_news.title }}</h4>
+							<div class="flex items-center justify-between truncate">
+								<p class="truncate">{{ latest_news.description }}</p>
+								<p class="w-full">{{ latest_news.created_at|date:"F j, Y" }}</p>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	{% else %}
+		<div class="h-full">
+			<div class="flex flex-col items-center justify-center my-4 space-y-4 animate_top">
+				<h2 class="text-4xl sm:text-6xl font-bold text-gray-900 text-center">
+					Latest News
+				</h2>
+				<p class="text-lg text-gray-600 text-center">Read the recent activities within our community.</p>
+			</div>
+			<div class="flex flex-col items-center justify-center my-4 space-y-4 animate_top h-96">
+				<h2 class="text-2xl sm:text-2xl font-bold text-gray-400 text-center">
+					No latest news articles.
+				</h2>
+			</div>
+		</div>
+	{% endif %}
+		{% for newsfeed in newsfeeds %}
+			<div class="col-span-2 sm:col-span-1 row-span-1 flex flex-wrap justify-left items-center">
+				<div class="animate_top shadow-lg w-full flex flex-col items-center">
+					<a href="{% url 'news_article' pk=newsfeed.id %}" class="w-full hover:scale-105 transition duration-200 relative group">
+						<div class="relative w-full h-64 overflow-hidden"> <!-- Fixed height -->
+						{% if newsfeed.image %}
+						<img class="w-full h-full object-cover bg-white" src="{{ newsfeed.image.url }}" alt="{{ newsfeed.pk }}">
+						{% else %}
+						<div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
+							No Image Available
+						</div>
+						{% endif %}
+						<div class="absolute inset-0 bg-black group-hover:bg-opacity-0 bg-opacity-15 transition duration-300"></div>
+						<div class="absolute bottom-0 left-0 w-full bg-white bg-opacity-60 hover:bg-opacity-80 text-gray-900 text-left p-2">
+							<h4 class="font-semibold text-2xl truncate hover:text-blue-800">{{ newsfeed.title }}</h4>
+							<div class="flex items-center justify-between truncate">
+								<p class="truncate">{{ newsfeed.description }}</p>
+								<p class="w-full">{{ newsfeed.created_at|date:"F j, Y" }}</p>
+							</div>
+						</div>
+					</div>
+				</a>
+				</div>
+			</div>
+		{% empty %}
+		{% endfor %}
+</div>
+
+{% endblock %}

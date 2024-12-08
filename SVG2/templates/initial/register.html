@@ -1,0 +1,24 @@
+{% load static tailwind_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+        {% tailwind_css %}
+        <link rel="shortcut icon" href="{%  static 'images/icon.png' %}">
+        <link rel="stylesheet" href="{%  static 'css/styles.css' %}">
+        <link rel="stylesheet" href="{%  static 'css/style.css' %}">
+        <script src="{% static 'js/script.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    </head>
+    <body>
+        
+        {% block content %}
+        
+        {% endblock content%}
+        <script defer src="{% static 'js/bundle.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,109 @@
+{% extends "officer/officer_base.html" %}
+
+{% load static %}
+
+{% block title %}
+{% if announcement.pk %} Update {% else %} New {% endif %} Announcement
+{% endblock title %}
+
+{% block content %}
+<div class="px-4 pt-16 sm:ml-64">
+    <div class="p-4 rounded-lg">
+      
+      <nav class="flex" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center mt-4 space-x-1 md:space-x-2 rtl:space-x-reverse">
+          <li class="inline-flex items-center">
+            <a href="{% url 'news_feed' user.username %}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+              Newsfeed
+            </a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+              <p class="ms-1 text-sm font-medium text-gray-700 md:ms-2 dark:text-gray-400 dark:hover:text-white">{% if announcement.pk %} Update {% else %} New {% endif %}</p>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <div class="w-full xl:inline-flex lg:inline-flex md:inline-flex items-center justify-between sm:inline-block xxs:mt-4 mt-4">
+        <div class="fk kk inline-flex items-center">
+          <h2 class="text-3xl">{% if announcement.pk %} Update {% else %} New {% endif %} Announcement</h2>
+          <span class="ml-2">
+          <svg height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500.34 500.34" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <polygon style="fill:#ED5B3A;" points="140.34,484 473.94,264 236.34,26.4 16.34,360 "></polygon> <polygon style="fill:#EADAEA;" points="291.54,131.2 68.34,355.2 57.14,344 246.74,85.6 "></polygon> <g> <path style="fill:#D32A0F;" d="M153.94,471.2c7.2,7.2,8,18.4,1.6,24.8l0,0c-6.4,6.4-17.6,5.6-24.8-1.6L5.94,369.6 c-7.2-7.2-8-18.4-1.6-24.8l0,0c6.4-6.4,17.6-5.6,24.8,1.6L153.94,471.2z"></path> <path style="fill:#D32A0F;" d="M490.74,247.2c7.2,7.2,8,18.4,1.6,24.8l0,0c-6.4,6.4-17.6,5.6-24.8-1.6L229.94,32.8 c-7.2-7.2-8-18.4-1.6-24.8l0,0c6.4-6.4,17.6-5.6,24.8,1.6L490.74,247.2z"></path> <path style="fill:#D32A0F;" d="M369.14,434.4l-52.8,38.4c-39.2,28.8-94.4,20-123.2-19.2l-4.8-7.2c-28.8-39.2-20-94.4,19.2-123.2 l52.8-38.4c39.2-28.8,94.4-20,123.2,19.2l4.8,7.2C417.14,350.4,408.34,406.4,369.14,434.4z M227.54,352c-24,16.8-28.8,50.4-12,74.4 l5.6,7.2c16.8,24,50.4,28.8,74.4,12l52.8-38.4c24-16.8,28.8-50.4,12-74.4l-4.8-7.2c-16.8-24-50.4-28.8-74.4-12L227.54,352z"></path> <polygon style="fill:#D32A0F;" points="238.74,28 236.34,26.4 229.14,36.8 "></polygon> <polygon style="fill:#D32A0F;" points="89.14,432 140.34,484 473.94,264 365.94,155.2 "></polygon> </g> <g> <path style="fill:#F29233;" d="M429.94,138.4c-3.2,0-5.6-4.8-5.6-8l0,0c0-3.2,2.4-8,5.6-8h64.8c3.2,0,5.6,4.8,5.6,8l0,0 c0,3.2-2.4,8-5.6,8H429.94z"></path>
+            <path style="fill:#F29233;" d="M429.14,87.2c-2.4,2.4-7.2,0.8-9.6-1.6l0,0c-2.4-2.4-4-7.2-1.6-9.6l45.6-45.6 c2.4-2.4,7.2-0.8,9.6,1.6l0,0c2.4,2.4,4,7.2,1.6,9.6L429.14,87.2z"></path>
+            <path style="fill:#F29233;" d="M361.94,70.4c0,3.2,4.8,5.6,8,5.6l0,0c3.2,0,8-2.4,8-5.6V5.6c0-3.2-4.8-5.6-8-5.6l0,0 c-3.2,0-8,2.4-8,5.6V70.4z"></path> </g> </g></svg>
+          </span>
+        </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+              <div class="border-b border-gray-900/10 pb-12">
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="sm:col-span-2">
+                      <label for="who" class="block text-sm font-medium leading-6 text-gray-900">Who:</label>
+                      <div class="mt-2">
+                        <input type="text" name="who" id="who" {% if announcement.pk %} value="{{ form.who.value }}" {% else %} value="" {% endif %} class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      </div>
+                    </div>
+            
+                    <div class="sm:col-span-2">
+                      <label for="what" class="block text-sm font-medium leading-6 text-gray-900">What:</label>
+                      <div class="mt-2">
+                        <input type="text" name="what" id="what" {% if announcement.pk %} value="{{ form.what.value }}" {% else %} value="" {% endif %} class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      </div>
+                    </div>
+          
+                    <div class="sm:col-span-2">
+                      <label for="where" class="block text-sm font-medium leading-6 text-gray-900">Where:</label>
+                      <div class="mt-2">
+                        <input type="text" name="where" id="where" {% if announcement.pk %} value="{{ form.where.value }}" {% else %} value="" {% endif %} class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                      <label for="date" class="block text-sm font-medium leading-6 text-gray-900">Date:</label>
+                      <div class="mt-2">
+                        <input type="date" name="date" id="date" value="{{ form.date.value|date:'Y-m-d' }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      </div>
+                    </div>
+            
+                    <div class="sm:col-span-3">
+                      <label for="time" class="block text-sm font-medium leading-6 text-gray-900">Time:</label>
+                      <div class="mt-2">
+                        <input type="time" name="time" id="time" value="{{ announcement.time|time:'H:i:s' }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      </div>
+                    </div>
+          
+                  <div class="col-span-full">
+                    <label for="image" class="block text-sm font-medium leading-6 text-gray-900">Insert Image:</label>
+                    <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                      <div class="text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="mt-4 ml-24 text-sm leading-6 text-gray-600">
+                          <label for="image" class="relative cursor-pointer bg-white font-semibold text-green-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-green-600 focus-within:ring-offset-2 hover:text-green-500">
+                            <span>{{ form.image }}</span>
+                          </label>
+                        </div>
+                        <p class="">or drag and drop</p>
+                        <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 flex items-center justify-start gap-x-6">
+                <a href="{% url 'news_feed' user.username %}"
+                class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500">Cancel</a>
+                <button type="submit"><span
+                    class="rounded-md bg-green-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Save</span></button>
+                </div>
+          </form>
+</div>
+</div>
+{% endblock %}

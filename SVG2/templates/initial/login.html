@@ -1,0 +1,73 @@
+{% extends "initial/register.html" %}
+
+{% load static %}
+{% block content %}
+<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <section class="">
+
+    <div class="animate_top bb af i va sg hh sm vk xm yi _n jp hi ao kp">
+      <!-- Bg Border -->
+      <span class="rc h r s zd/2 od zg nh"></span>
+      <span class="rc h r q zd/2 od xg nh"></span>
+
+      <div class="rj">
+        <img class="mx-auto h-10 w-auto" src="{% static 'images/login.svg' %}" alt="Workflow">
+        <h2 class="ek ck kk wm xb mt-4">Sign in to your account</h2>
+
+
+
+        </span>
+      </div>
+      <form class="sb" method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+  <div class="bg-red-100 border border-red-400 text-red-700 my-4 px-4 py-3 rounded">
+    {% for field, errors in form.errors.items %}
+      {% for error in errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    {% endfor %}
+  </div>
+{% endif %}
+        <div class="wb">
+          <label class="rc kk wm vb" for="username">Username</label>
+          <input id="username" name="username" placeholder="John123" type="text" required="" value=""
+            class="vd hh rg zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40" />
+        </div>
+
+        <div class="wb">
+          <label class="rc kk wm vb" for="password">Password</label>
+          <input id="password" name="password" type="password" required="" placeholder="**************"
+            class="vd hh rg zk _g ch hm dm fm pl/50 xi mi sm xm pm dn/40" />
+        </div>
+        <div class="sj flex justify-between my-8">
+          <div class="flex">
+            <label for="Remember_me" class="mr-2">{{ form.remember_me }}</label>
+            <p class="text-sm mt-1">Remember me</p>
+          </div>
+          <a href="{% url 'password_reset' %}" class="float-right mt-1 text-sm hover:text-blue-500">Forgot Password?</a>
+        </div>
+        <button type="submit" class="vd rj ek rc rg nh lk ml il _l gi hi hover:bg-green-600">
+          Sign In
+        </button>
+        <a href="{% url 'home' %}" class="vd rj ek rc rg mh lk ml il _l gi hi mt-5 hover:bg-red-600">Cancel</a>
+        <p class="sj hk xj rj ob">
+          Don't have an account?
+        <p class="sj mt-2 text-center text-sm leading-5 text-gray-500 max-w">
+          Create a new account as
+          <a href="{% url 'member_signup' %}"
+            class="font-medium text-green-800 hover:text-green-400 focus:outline-none focus:underline transition ease-in-out duration-150">
+            Member
+          </a>
+          or
+          <a href="{% url 'officer_signup' %}"
+            class="font-medium text-green-800 hover:text-green-400 focus:outline-none focus:underline transition ease-in-out duration-150">
+            Officer
+          </a>
+        </p>
+        </p>
+      </form>
+    </div>
+  </section>
+</div>
+{% endblock content %}
